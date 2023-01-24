@@ -6,23 +6,24 @@ pipeline{
 					git branch: 'main', url: 'https://github.com/chaan2835/my-yankils-helloworld.git'
 				}
 			}
-			stage ("maven-Build"){
+			stage("maven-Build"){
 				steps{
-					sh "mvn test"
-					sh "mvn verify -DskipunitTests"
-					sh "mvn clean install"
+						sh "mvn test"
+						sh "mvn verify -DskipunitTests"
+						sh "mvn clean install"
 				}
 			}
 			stage("sonar code analysis"){
 				steps{
-					scripts{
-						withSonarQubeEnv(credentialsId: 'sonar-token') {
- 						 sh "mvn clean package sonar:sonar"
-						}
+					script{
+							withSonarQubeEnv(credentialsId: 'sonar-token') {
+							 sh "mvn clean package sonar:sonar"
+							}
 					}
-					
+
 				}
 			}
 
 		}
-	}
+}
+
