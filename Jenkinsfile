@@ -6,5 +6,12 @@ pipeline{
 					git branch: 'main', url: 'https://github.com/chaan2835/my-yankils-helloworld.git'
 				}
 			}
+			stage ("maven-Build"){
+				steps{
+					sh "mvn test"
+					sh "mvn verify -DskipunitTests"
+					sh "mvn clean install"
+				}
+			}
 		}
 	}
