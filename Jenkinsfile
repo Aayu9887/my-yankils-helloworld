@@ -1,5 +1,8 @@
 pipeline{
 	agent any
+	environment{
+		DOCKERHUB_CREDENTIALS = credentials("docker-token")
+	}
 	options{
 	buildDiscarder(logRotator(numToKeepStr:"2"))
 	}
