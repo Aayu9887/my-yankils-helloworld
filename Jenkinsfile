@@ -1,7 +1,7 @@
 pipeline{
 	agent any
 	environment{
-		DOCKERHUB_CREDENTIALS = credentials("docker-token")
+		DOCKERHUB_CREDENTIALS = credentials('docker-token')
 	}
 	options{
 	buildDiscarder(logRotator(numToKeepStr:"2"))
@@ -36,15 +36,16 @@ pipeline{
 					}
 				}
 			}
+		
+		stage("Build docker image"){
+			steps{
+				sh "docker build -t chaan2835/my-yankils-hello-world:$BUILD_NUMBER ."
+			}
+		}
 		stage("docker login"){
 			steps{
 				sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
 				}
-		}
-		stage("Build docker image"){
-			steps{
-				sh "build -t chaan2835/my-yankils-hello-world:$BUILD_NUMBER ."
-			}
 		}
 		stage ("Docker Push"){
 			steps{
