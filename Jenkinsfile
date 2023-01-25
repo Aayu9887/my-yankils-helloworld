@@ -16,16 +16,16 @@ pipeline{
 				sh "mvn clean install"
 			}
 		}
-		/*stage("sonar code analysis"){
+		stage("sonar code analysis"){
 			steps{
 				script{
 						withSonarQubeEnv(credentialsId: 'sonar-token') {
-						 sh "mvn clean package sonar:sonar"
+   						 sh "mvn clean package sonar:sonar"
 						}
 					}
 
 				}
-			}*/
+			}
 
 		}
 	}
