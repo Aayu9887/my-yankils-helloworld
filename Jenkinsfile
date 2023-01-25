@@ -51,8 +51,12 @@ pipeline{
 				sh "docker push chaan2835/my-yankils-hello-world:$BUILD_NUMBER"
 			}
 		}
-		
-
+	
+	}
+	post{
+		always{
+			sh "docker logout"
 		}
 	}
+}
 
