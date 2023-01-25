@@ -46,6 +46,11 @@ pipeline{
 				sh "build -t chaan2835/my-yankils-hello-world:$BUILD_NUMBER ."
 			}
 		}
+		stage ("Docker Push"){
+			steps{
+				sh "docker push chaan2835/my-yankils-hello-world:$BUILD_NUMBER"
+			}
+		}
 		
 
 		}
