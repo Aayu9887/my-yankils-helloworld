@@ -39,5 +39,10 @@ pipeline{
 				sh "docker login -u chaan2835 -pChandra@2835"
 			}
 		}
+		stage("Docker-Build"){
+			steps{
+				sh "docker build -t chaan2835/my-yankils-helloworld ."
+			}
+		}
 	}
 }
