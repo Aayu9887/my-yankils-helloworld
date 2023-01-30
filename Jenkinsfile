@@ -1,8 +1,6 @@
 pipeline{
 	agent any
-	environment{
-		DOCKERHUB_CREDENTIALS = credentials('docker-token')
-	}
+	
 	options{
 	buildDiscarder(logRotator(numToKeepStr:"2"))
 	}
@@ -35,29 +33,8 @@ pipeline{
 					waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
 					}
 				}
-			}
-		
-		stage("Build docker image"){
-			steps{
-				sh "docker build -t chaan2835/my-yankils-hello-world:$BUILD_NUMBER ."
-			}
-		}
-		stage("docker login"){
-			steps{
-				sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-				}
-		}
-		stage ("Docker Push"){
-			steps{
-				sh "docker push chaan2835/my-yankils-hello-world:$BUILD_NUMBER"
-			}
-		}
+			}		
 	
-	}
-	post{
-		always{
-			sh "docker logout"
-		}
-	}
+	
 }
 
